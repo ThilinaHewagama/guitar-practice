@@ -1,10 +1,10 @@
-# Guitar Live
+# Guitar Practice
 
 A web-based interactive guitar application that helps users learn and practice guitar.
 
 ## Description
 
-Guitar Live is a web application designed to provide an interactive guitar learning experience. The application features a modern user interface and helps users improve their guitar playing skills.
+Guitar Practice is a web application designed to provide an interactive guitar learning experience. The application features a modern user interface and helps users improve their guitar playing skills.
 
 ## Features
 
