@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentSignatureBeat = 0;
             startButton.disabled = false;
             stopButton.disabled = true;
-            currentChord.textContent = 'Ready';
+            currentChord.textContent = 'Start!';
             countdown.textContent = '';
             beatIndicator.classList.remove('active');
         }
