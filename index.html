@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Practice - Chords</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <div class="content">
+            <div class="chord-display">
+                <div id="currentChord">Ready</div>
+                <div id="countdown" class="countdown"></div>
+            </div>
+
+            <div class="controls">
+                <div class="control-row">
+                    <button id="startButton">Start</button>
+                    <button id="stopButton" disabled>Stop</button>
+                </div>
+
+                <div class="control-row">
+                    <div class="speed-control">
+                        <label for="speedSlider">Beats per chord: <span id="speedValue">4</span></label>
+                        <input type="range" id="speedSlider" min="1" max="8" step="1" value="4">
+                    </div>
+
+                    <div class="time-signature">
+                        <label for="beatsPerMeasure">Time Signature:</label>
+                        <select id="beatsPerMeasure">
+                            <option value="2">2/4</option>
+                            <option value="3">3/4</option>
+                            <option value="4" selected>4/4</option>
+                            <option value="6">6/8</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-row">
+                    <div class="tempo-control">
+                        <label for="tempoSlider">Tempo: <span id="tempoValue">80</span> BPM</label>
+                        <div class="metronome-controls">
+                            <button id="decreaseTempo" class="tempo-btn">-</button>
+                            <input type="range" id="tempoSlider" min="40" max="208" value="80" class="tempo-slider">
+                            <button id="increaseTempo" class="tempo-btn">+</button>
+                            <button id="muteMetronome" class="mute-btn">🔊</button>
+                        </div>
+                    </div>
+                    <div id="beat-indicator" class="beat-indicator">
+                        <div class="indicator-light"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chord-selection">
+                <h2>Select Chords to Practice</h2>
+                <div class="chord-grid">
+                    <!-- Major Chords -->
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-A" value="A" checked>
+                        <label for="chord-A">A</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-B" value="B">
+                        <label for="chord-B">B</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-C" value="C">
+                        <label for="chord-C">C</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-D" value="D" checked>
+                        <label for="chord-D">D</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-E" value="E" checked>
+                        <label for="chord-E">E</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-F" value="F">
+                        <label for="chord-F">F</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-G" value="G">
+                        <label for="chord-G">G</label>
+                    </div>
+
+                    <!-- Minor Chords -->
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Am" value="Am">
+                        <label for="chord-Am">Am</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Bm" value="Bm">
+                        <label for="chord-Bm">Bm</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Cm" value="Cm">
+                        <label for="chord-Cm">Cm</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Dm" value="Dm">
+                        <label for="chord-Dm">Dm</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Em" value="Em">
+                        <label for="chord-Em">Em</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Fm" value="Fm">
+                        <label for="chord-Fm">Fm</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Gm" value="Gm">
+                        <label for="chord-Gm">Gm</label>
+                    </div>
+
+                    <!-- 7th Chords -->
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-A7" value="A7">
+                        <label for="chord-A7">A7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-B7" value="B7">
+                        <label for="chord-B7">B7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-C7" value="C7">
+                        <label for="chord-C7">C7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-D7" value="D7">
+                        <label for="chord-D7">D7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-E7" value="E7">
+                        <label for="chord-E7">E7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-F7" value="F7">
+                        <label for="chord-F7">F7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-G7" value="G7">
+                        <label for="chord-G7">G7</label>
+                    </div>
+
+                    <!-- Minor 7th Chords -->
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Am7" value="Am7">
+                        <label for="chord-Am7">Am7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Bm7" value="Bm7">
+                        <label for="chord-Bm7">Bm7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Cm7" value="Cm7">
+                        <label for="chord-Cm7">Cm7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Dm7" value="Dm7">
+                        <label for="chord-Dm7">Dm7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Em7" value="Em7">
+                        <label for="chord-Em7">Em7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Fm7" value="Fm7">
+                        <label for="chord-Fm7">Fm7</label>
+                    </div>
+                    <div class="chord-item">
+                        <input type="checkbox" id="chord-Gm7" value="Gm7">
+                        <label for="chord-Gm7">Gm7</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 
