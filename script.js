@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
         MUTE_STATE: 'guitar_practice_mute_state'
     };
 
-    function getAudioContext() {
+    const getAudioContext = () => {
         if (!audioContext) {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
         }
         return audioContext;
-    }
+    };
 
-    function playClick(frequency = 880, duration = 0.05) {
+    const playClick = (frequency = 880, duration = 0.05) => {
         if (isMuted) return; // Skip sound if muted
         
         const audioContext = getAudioContext();
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         oscillator.start(audioContext.currentTime);
         oscillator.stop(audioContext.currentTime + duration);
-    }
+    };
 
     // Add mute button functionality
     const muteButton = document.getElementById('muteMetronome');
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Chord practice functionality
-    function initializeChordPractice() {
+    const initializeChordPractice = () => {
         const startButton = document.getElementById('startButton');
         const stopButton = document.getElementById('stopButton');
         const speedSlider = document.getElementById('speedSlider');
@@ -81,19 +81,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let chordBeatFuel = 0;
         let isPlaying = false;
 
-        function getSelectedChords() {
+        const getSelectedChords = () => {
             const checkboxes = document.querySelectorAll('.chord-item input[type="checkbox"]:checked');
             return Array.from(checkboxes).map(cb => cb.value);
-        }
+        };
 
-        function setSelectedChords(chordList) {
+        const setSelectedChords = (chordList) => {
             document.querySelectorAll('.chord-item input[type="checkbox"]').forEach(checkbox => {
                 checkbox.checked = chordList.includes(checkbox.value);
             });
-        }
+        };
         
         // Load saved preferences
-        function loadSavedPreferences() {
+        const loadSavedPreferences = () => {
             try {
                 // Load tempo
                 const savedTempo = localStorage.getItem(STORAGE_KEYS.TEMPO);
@@ -126,10 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Error loading preferences:', error);
             }
-        }
+        };
 
         // Save preferences
-        function savePreferences() {
+        const savePreferences = () => {
             try {
                 localStorage.setItem(STORAGE_KEYS.TEMPO, tempoSlider.value);
                 localStorage.setItem(STORAGE_KEYS.BEATS_PER_CHORD, speedSlider.value);
@@ -138,21 +138,21 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Error saving preferences:', error);
             }
-        }
+        };
         
-        function getRandomChord(chords) {
+        const getRandomChord = (chords) => {
             const randomIndex = Math.floor(Math.random() * chords.length);
             return chords[randomIndex];
-        }
+        };
         
-        function updateSpeedDisplay() {
+        const updateSpeedDisplay = () => {
             speedValue.textContent = speedSlider.value;
-        }
+        };
 
-        function updateTempoDisplay() {
+        const updateTempoDisplay = () => {
             const tempo = parseInt(tempoSlider.value);
             tempoValue.textContent = tempo;
-        }
+        };
         
         // Event listeners for saving preferences
         speedSlider.addEventListener('change', () => {
@@ -179,14 +179,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        function showNextChord() {
+        const showNextChord = () => {
             const selectedChords = getSelectedChords();
-            var value = getRandomChord(selectedChords);
+            const value = getRandomChord(selectedChords);
             currentChord.textContent = value;
             chordBeatFuel = parseInt(speedSlider.value);
-        }
+        };
 
-        function startChordProgression() {
+        const startChordProgression = () => {
             const selectedChords = getSelectedChords();
             
             if (selectedChords.length === 0) {
@@ -206,11 +206,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Show first chord immediately
             showNextChord();
-            countdown.textContent = `-`;
+            countdown.textContent = '-';
             
             // Start metronome
             metronomeIntervalId = setInterval(() => {
-
                 // Change chord if needed
                 if (chordBeatFuel < 1) {
                     showNextChord();
@@ -226,17 +225,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Update beat counter
                 currentSignatureBeat = (currentSignatureBeat + 1) % totalSignatureBeats;
                 
-                let beatsPerChord = parseInt(speedSlider.value);
+                const beatsPerChord = parseInt(speedSlider.value);
                 // Update beat display to show current beat number
                 countdown.textContent = `${(beatsPerChord - chordBeatFuel + 1)}`;
                 
                 // Decrement beats until next chord change
                 chordBeatFuel--;
-            
             }, interval);
-        }
+        };
         
-        function stopChordProgression() {
+        const stopChordProgression = () => {
             if (metronomeIntervalId) {
                 clearInterval(metronomeIntervalId);
                 metronomeIntervalId = null;
@@ -251,40 +249,27 @@ document.addEventListener('DOMContentLoaded', () => {
             startButton.disabled = false;
             stopButton.disabled = true;
             currentChord.textContent = 'Start!';
-            countdown.textContent = '';
-            beatIndicator.classList.remove('active');
-        }
-        
+            countdown.textContent = '-';
+        };
+
+        // Add click handlers
         startButton.addEventListener('click', startChordProgression);
         stopButton.addEventListener('click', stopChordProgression);
-
-        // Tempo control buttons
         increaseTempo.addEventListener('click', () => {
-            const newTempo = Math.min(parseInt(tempoSlider.value) + 1, parseInt(tempoSlider.max));
-            tempoSlider.value = newTempo;
+            tempoSlider.value = parseInt(tempoSlider.value) + 1;
             updateTempoDisplay();
-            if (isPlaying) {
-                stopChordProgression();
-                startChordProgression();
-            }
+            savePreferences();
         });
-
         decreaseTempo.addEventListener('click', () => {
-            const newTempo = Math.max(parseInt(tempoSlider.value) - 1, parseInt(tempoSlider.min));
-            tempoSlider.value = newTempo;
+            tempoSlider.value = parseInt(tempoSlider.value) - 1;
             updateTempoDisplay();
-            if (isPlaying) {
-                stopChordProgression();
-                startChordProgression();
-            }
+            savePreferences();
         });
 
-        // Initialize displays and load preferences
+        // Load saved preferences on initialization
         loadSavedPreferences();
-    }
+    };
 
-    // Initialize components based on current page
-    if (document.querySelector('.chord-display')) {
-        initializeChordPractice();
-    }
+    // Initialize the chord practice functionality
+    initializeChordPractice();
 }); 

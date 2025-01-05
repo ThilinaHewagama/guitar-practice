@@ -22,6 +22,19 @@ body {
     line-height: 1.6;
 }
 
+.chord-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Main Content */
 main {
     padding: 2rem;
@@ -625,4 +638,130 @@ select:focus {
     display: inline-flex;
     margin-left: 1rem;
     vertical-align: middle;
-} 
+}
+
+/* Chord Table Styles */
+.chord-table {
+    background-color: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 80%;
+    width: fit-content;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    align-items: start;
+    margin-top: 80px;
+}
+
+.row-group {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 0;
+}
+
+.row-number {
+    background-color: var(--secondary-color);
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    position: sticky;
+    left: 0;
+}
+
+.row-group table {
+    flex: 1;
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.row-group td {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border: 1px solid #eee;
+    font-weight: 500;
+    transition: background-color var(--transition-speed);
+}
+
+.row-group td:hover {
+    background-color: var(--background-color);
+    cursor: pointer;
+}
+
+.row-group tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+    .chord-table {
+        padding: 1rem;
+        margin: 1rem;
+        grid-template-columns: 1fr;
+    }
+
+    .row-group td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+.advanced-mode-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.advanced-mode-btn:hover {
+    background-color: #45a049;
+}
+
+.back-btn {
+    display: inline-block;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: all var(--transition-speed);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.back-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.row-1 table { background-color: #F0FFF0; }  /* Honeydew */
+.row-2 table { background-color: #FFF0F5; }  /* Lavender Blush */
+.row-3 table { background-color: #F0F8FF; }  /* Alice Blue */
+.row-4 table { background-color: #FFFACD; }  /* Lemon Chiffon */
+.row-5 table { background-color: #F5F5DC; }  /* Beige */ 
+.row-6 table { background-color: #E0FFFF; }  /* Light Cyan */
+.row-7 table { background-color: #FFE4E1; }  /* Misty Rose */
